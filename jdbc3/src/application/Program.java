@@ -14,13 +14,13 @@ import db.DB;
 public class Program {
 
 	public static void main(String[] args) {
-		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy"); //Formata a data
 		Connection conn = null;
 		PreparedStatement st = null;
 		try {
 			conn = DB.getConnection();
 			
-			/*
+			/* Inserir dados na tabela
 			st = conn.prepareStatement(
 					"INSERT INTO seller "
 					+ "(Name, Email, BirthDate, BaseSalary, DepartmentId) "
@@ -28,7 +28,7 @@ public class Program {
 					+ "(?, ?, ?, ?, ?)", //Campos da tabela
 					Statement.RETURN_GENERATED_KEYS
 					);
-			st.setString(1, "Carl Purple");
+			st.setString(1, "Carl Purple"); //1 referencia à primeira '?'
 			st.setString(2, "carl@gmail.com");
 			st.setDate(3, new java.sql.Date(sdf.parse("22/04/1985").getTime()));
 			st.setDouble(4, 3000.0);
