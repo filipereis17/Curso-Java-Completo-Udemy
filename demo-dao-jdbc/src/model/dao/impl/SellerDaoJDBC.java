@@ -51,18 +51,8 @@ public class SellerDaoJDBC implements SellerDao {
 			st.setInt(1, id);
 			rs = st.executeQuery();
 			if (rs.next()) { //Percorre tabela
-				Department dep = new Department(); //Cria um objeto para receber dados do DB
-				dep.setId(rs.getInt("DepartmentId")); //Percorre a tabela e pega um int
-				dep.setName(rs.getString("DepName")); //Percorre a tabela e pega uma String
-				
-				Seller obj = new Seller(); // Mesmo processo com Vendedor
-				obj.setId(rs.getInt("Id"));
-				obj.setName(rs.getString("Name"));
-				obj.setEmail(rs.getString("Email"));
-				obj.setBaseSalary(rs.getDouble("BaseSalary"));
-				obj.setBirthdate(rs.getDate("BirthDate"));
-				obj.setDepartment(dep); //Department pega o objeto criado acima
-				
+				Department dep = instantiateDepartment(rs);				
+				Seller obj = instantiateSeller(rs, dep);				
 				return obj;				
 			}
 			return null;
@@ -73,6 +63,24 @@ public class SellerDaoJDBC implements SellerDao {
 			DB.closeStatement(st);
 			DB.closeResultSet(rs);
 		}
+	}
+
+	private Seller instantiateSeller(ResultSet rs, Department dep) throws SQLException {
+		Seller obj = new Seller(); // Mesmo processo com Vendedor
+		obj.setId(rs.getInt("Id"));
+		obj.setName(rs.getString("Name"));
+		obj.setEmail(rs.getString("Email"));
+		obj.setBaseSalary(rs.getDouble("BaseSalary"));
+		obj.setBirthdate(rs.getDate("BirthDate"));
+		obj.setDepartment(dep); //Department pega o objeto criado acima
+		return obj;
+	}
+
+	private Department instantiateDepartment(ResultSet rs) throws SQLException {
+		Department dep = new Department(); //Cria um objeto para receber dados do DB
+		dep.setId(rs.getInt("DepartmentId")); //Percorre a tabela e pega um int
+		dep.setName(rs.getString("DepName")); //Percorre a tabela e pega uma String
+		return dep;
 	}
 
 	@Override
