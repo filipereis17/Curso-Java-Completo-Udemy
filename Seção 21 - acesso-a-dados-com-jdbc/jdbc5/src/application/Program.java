@@ -21,8 +21,8 @@ public class Program {
 					+ "WHERE "
 					+ "Id = ?"
 			);
-			//st.setInt(1, 5); //Apagou department D1
-			st.setInt(1, 2);
+			st.setInt(1, 5); //Apagou department D1
+			//st.setInt(1, 2);
 							
 			
 			int rowsAffected = st.executeUpdate();
