@@ -1,4 +1,4 @@
-package aplicacao;
+ package aplicacao;
 
 import javax.persistence.Entity;
 import javax.persistence.EntityManager;
@@ -11,7 +11,7 @@ public class Programa {
 		public static void main(String[] args) {
 				
 		/* Primeira execução
-		 * Pessoa p1 = new Pessoa(null, "Carlos da Slva", "carlos@gmail.com");
+		Pessoa p1 = new Pessoa(null, "Carlos da Slva", "carlos@gmail.com");
 		Pessoa p2 = new Pessoa(null, "Joaquim Torres", "joaquim@gmail.com");
 		Pessoa p3 = new Pessoa(null, "Ana Maria", "ana@gmail.com");*/
 		
@@ -26,17 +26,18 @@ public class Programa {
 		em.getTransaction().commit();*/
 		
 		// Segunda execução
-		//Pessoa p = em.find(Pessoa.class, 2);
-		//System.out.println(p);
+		Pessoa p = em.find(Pessoa.class, 3);
+		System.out.println(p);
 		
 		/* Erro
 		 * Pessoa p = new Pessoa(2, null, null);		
 		*/
-		Pessoa p = em.find(Pessoa.class, 2);
+		/*Pessoa p = em.find(Pessoa.class, 1);
 		em.getTransaction().begin();
 		em.remove(p); 
 		em.getTransaction().commit();
-		
+		*/
+			
 		System.out.println("Pronto!");
 		em.close();
 		emf.close();
