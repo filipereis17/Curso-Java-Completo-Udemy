@@ -12,6 +12,8 @@ Abra um terminal ou prompt de comando, navegue até o diretório onde deseja cri
 
 ```bash
 mvn archetype:generate -DgroupId=com.example -DartifactId=my-jpa-project -DarchetypeArtifactId=maven-archetype-quickstart -DinteractiveMode=false
+```
+
 Substitua com.example pelo pacote base que você deseja usar e my-jpa-project pelo nome do seu projeto.
 
 Passo 3: Adicionar as dependências
