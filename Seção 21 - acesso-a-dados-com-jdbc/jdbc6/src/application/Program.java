@@ -9,42 +9,56 @@ import db.DbException;
 
 public class Program {
 
-	public static void main(String[] args) {
-		
-		Connection conn = null;
-		Statement st = null;
-		try {
-			conn = DB.getConnection();
-						
-			conn.setAutoCommit(false); //Não envia para o banco automaticamente
-			
-			st = conn.createStatement();
-			
-			int rows1 = st.executeUpdate("UPDATE seller SET BaseSalary = 2090 WHERE DepartmentId = 1");
-			
-			//int x = 1;
-			//if (x < 2) {
-				//throw new SQLException("Fake error"); //Erro no meio da transação
-			//}
-			int rows2 = st.executeUpdate("UPDATE seller SET BaseSalary = 3090 WHERE DepartmentId = 2");
-			
-			conn.commit(); //Realiza a operação no BD
-			
-			System.out.println("rows1 " + rows1);
-			System.out.println("rows2 " + rows2);
-		} catch (SQLException e) {
-			try {
-				conn.rollback(); //Volta para o estado original, desfaz alterações no BD
-				throw new DbException("Tranaction rolled back! Caused by: " + e.getMessage());
-			} catch (SQLException e1) {
-				throw new DbException("Error trying to rollback! Caused by: " + e.getMessage());
-			}
-		} 
-		finally {
-			DB.closeStatement(st);
-			DB.closeConnection();
-		}
-		
-	}
+    public static void main(String[] args) {
+        
+        // Inicializa variáveis para conexão e declaração
+        Connection conn = null;
+        Statement st = null;
+        try {
+            // Estabelece uma conexão com o banco de dados
+            conn = DB.getConnection();
+            
+            // Desativa o modo de autocommit para iniciar uma transação
+            conn.setAutoCommit(false);
+            
+            // Cria uma declaração para executar comandos SQL
+            st = conn.createStatement();
+            
+            // Executa a primeira atualização de salário e armazena o número de linhas afetadas
+            int rows1 = st.executeUpdate("UPDATE seller SET BaseSalary = 2090 WHERE DepartmentId = 1");
+            
+            // Simulação de erro
+            /*int x = 1;
+            if (x < 2) {
+                throw new SQLException("Fake error");
+            }*/
+            
+            // Executa a segunda atualização de salário e armazena o número de linhas afetadas
+            int rows2 = st.executeUpdate("UPDATE seller SET BaseSalary = 3090 WHERE DepartmentId = 2");
+            
+            // Realiza o commit da transação
+            conn.commit();
+            
+            // Imprime o número de linhas afetadas em cada atualização
+            System.out.println("rows1 " + rows1);
+            System.out.println("rows2 " + rows2);            
+        } catch (SQLException e) {
+            try {
+                // Em caso de erro, tenta fazer o rollback da transação
+                conn.rollback();
+                // Lança uma exceção personalizada indicando que a transação foi revertida
+                throw new DbException("Transação revertida! Causado por: " + e.getMessage());
+            } catch (SQLException e1) {
+                // Se ocorrer um erro durante o rollback, lança uma exceção personalizada
+                throw new DbException("Erro ao tentar reverter a transação! Causado por: " + e1.getMessage());
+            }
+        } 
+        finally {
+            // Fecha a declaração e a conexão com o banco de dados, liberando recursos
+            DB.closeStatement(st);
+            DB.closeConnection();
+        }
+        
+    }
 
 }
