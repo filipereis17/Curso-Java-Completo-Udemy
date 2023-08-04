@@ -10,21 +10,31 @@ public class Program {
 
 	public static void main(String[] args) {
 		
+		// Inicializa as variáveis para conexão com o banco de dados e declaração preparada
 		Connection conn = null;
 		PreparedStatement st = null;
 		try {
+			// Estabelece a conexão com o banco de dados
 			conn = DB.getConnection();
 			
+			// Cria uma declaração preparada para atualizar o salário
 			st = conn.prepareStatement(
 					"UPDATE seller "
 					+ "SET BaseSalary = BaseSalary + ? "
 					+ "WHERE "
 					+ "(DepartmentId = ?)");
+			
+			// Define os parâmetros para a declaração preparada: aumento salarial e ID do departamento
+            st.setDouble(1, 200.0);
 			st.setDouble(1, 200.0);
+			
+			// Executa a atualização e obtém o número de linhas afetadas
 			st.setInt(2, 2);
 			
+			// Executa a atualização e obtém o número de linhas afetadas
 			int rowsAffected = st.executeUpdate();
 			
+			// Imprime o resultado, mostrando quantas linhas foram afetadas
 			System.out.println("Done! Rows affected: " + rowsAffected);
 		} catch (SQLException e) {
 			e.printStackTrace();
