@@ -1,5 +1,6 @@
 package application;
 
+import java.util.Date;
 import java.util.List;
 
 import model.dao.DaoFactory;
@@ -29,12 +30,19 @@ public class Program {
         }
         
         System.out.println("\n=== TEST 3: seller findAll ===");
-        // Chamando o método findAll do sellerDao para buscar todos os vendedores no banco de dados
+        // Testando o método findAll do sellerDao para buscar todos os vendedores no banco de dados
         list = sellerDao.findAll();
         // Iterando sobre a lista de vendedores retornados pela consulta
         for (Seller obj : list) {
             System.out.println(obj);
         }
+        
+        System.out.println("\n=== TEST 4: seller insert ===");
+        // Criando um novo objeto Seller com os dados do novo vendedor a ser inserido
+        Seller newSeller = new Seller(null, "Greg", "greg@gmail.com", new Date(), 4000.0, department);
+        // Chamando o método insert do sellerDao para inserir o novo vendedor no banco de dados
+        sellerDao.insert(newSeller);
+        System.out.println("Inserted! New id = " + newSeller.getId());
     }
 
 }
