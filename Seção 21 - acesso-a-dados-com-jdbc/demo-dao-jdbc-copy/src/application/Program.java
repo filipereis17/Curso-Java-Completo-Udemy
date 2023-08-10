@@ -27,6 +27,14 @@ public class Program {
         for (Seller obj : list) {
             System.out.println(obj);
         }
+        
+        System.out.println("\n=== TEST 3: seller findAll ===");
+        // Chamando o método findAll do sellerDao para buscar todos os vendedores no banco de dados
+        list = sellerDao.findAll();
+        // Iterando sobre a lista de vendedores retornados pela consulta
+        for (Seller obj : list) {
+            System.out.println(obj);
+        }
     }
 
 }
