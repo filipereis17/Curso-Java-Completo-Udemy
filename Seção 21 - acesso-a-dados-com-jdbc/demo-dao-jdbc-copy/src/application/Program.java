@@ -43,6 +43,15 @@ public class Program {
         // Chamando o método insert do sellerDao para inserir o novo vendedor no banco de dados
         sellerDao.insert(newSeller);
         System.out.println("Inserted! New id = " + newSeller.getId());
+        
+        System.out.println("\n=== TEST 5: seller update ===");
+        // Buscando um vendedor pelo ID para posterior atualização
+        seller = sellerDao.findById(1);
+        // Modificando o nome do vendedor
+        seller.setName("Martha Waine");
+        // Chamando o método update do sellerDao para aplicar as alterações no vendedor
+        sellerDao.update(seller);
+        System.out.println("Update completed!");
     }
 
 }
