@@ -4,21 +4,21 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.Objects;
 
-public class Seller implements Serializable {
-
+public class Seller implements Serializable  {
+	
 	private static final long serialVersionUID = 1L;
 	private Integer id;
 	private String name;
 	private String email;
 	private Date birthDate;
-	private Double baseSalary;
+	private double baseSalary;
 	
 	private Department department;
 	
-	public Seller() {
-	}
+	public Seller() {		
+	}	
 
-	public Seller(Integer id, String name, String email, Date birthDate, Double baseSalary, Department department) {
+	public Seller(Integer id, String name, String email, Date birthDate, double baseSalary, Department department) {
 		this.id = id;
 		this.name = name;
 		this.email = email;
@@ -26,7 +26,7 @@ public class Seller implements Serializable {
 		this.baseSalary = baseSalary;
 		this.department = department;
 	}
-
+	
 	public Integer getId() {
 		return id;
 	}
@@ -51,19 +51,19 @@ public class Seller implements Serializable {
 		this.email = email;
 	}
 
-	public Date getBirthDate() {
+	public Date getBirthdate() {
 		return birthDate;
 	}
 
-	public void setBirthDate(Date birthDate) {
-		this.birthDate = birthDate;
+	public void setBirthdate(Date birthdate) {
+		this.birthDate = birthdate;
 	}
 
-	public Double getBaseSalary() {
+	public double getBaseSalary() {
 		return baseSalary;
 	}
 
-	public void setBaseSalary(Double baseSalary) {
+	public void setBaseSalary(double baseSalary) {
 		this.baseSalary = baseSalary;
 	}
 
@@ -91,10 +91,11 @@ public class Seller implements Serializable {
 		Seller other = (Seller) obj;
 		return Objects.equals(id, other.id);
 	}
-
+	
 	@Override
 	public String toString() {
-		return "Seller [id=" + id + ", name=" + name + ", email=" + email + ", birthDate=" + birthDate + ", baseSalary="
-				+ baseSalary + ", department=" + department + "]";
+		return "Seller [id=" + id + ", name=" + name + ", email=" + email + ", birthdate=" + birthDate 
+				+ ", baseSalary=" + baseSalary + ", department=" + department.getName() + "]";
 	}
+	
 }
