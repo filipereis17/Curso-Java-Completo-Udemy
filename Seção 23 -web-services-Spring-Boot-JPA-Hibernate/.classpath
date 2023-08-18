@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="src" path="course-old/src/main/java"/>
+	<classpathentry kind="src" path="course-old/src/test/java"/>
+	<classpathentry kind="src" path="course/src/main/java"/>
+	<classpathentry kind="src" path="course/src/test/java"/>
+	<classpathentry kind="lib" path="course-old/.mvn/wrapper/maven-wrapper.jar"/>
+	<classpathentry kind="lib" path="course-old/bin/.mvn/wrapper/maven-wrapper.jar"/>
+	<classpathentry kind="lib" path="course/.mvn/wrapper/maven-wrapper.jar"/>
+	<classpathentry kind="output" path="course-old/target/classes"/>
+</classpath>
