@@ -11,9 +11,13 @@ import com.educandoWeb.course.entities.User;
 @RequestMapping(value = "/users")
 public class UserResource {
 
+	// Endpoint para buscar todos os usuários
 	@GetMapping
 	public ResponseEntity<User> findAll() {
+		// Criando um usuário de exemplo
 		User u = new User(1L, "Maria", "maria@gmail.com", "999999999", "12345");
+		
+		// Retornando o usuário como resposta da requisição
 		return ResponseEntity.ok().body(u);
 	}
 }
