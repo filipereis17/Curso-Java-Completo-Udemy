@@ -9,6 +9,7 @@ import java.util.Set;
 import com.educandoWeb.course.entities.enums.OrderStatus;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -16,30 +17,46 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
-@Entity
-@Table(name = "tb_order")
-public class Order implements Serializable {
+	//Anotação para indicar que esta classe é uma entidade mapeada no banco de dados
+	@Entity
+	//Define o nome da tabela no banco de dados para esta entidade
+	@Table(name = "tb_order")
+	public class Order implements Serializable {
+	
+	 // Identificador para serialização da classe
+	 private static final long serialVersionUID = 1L;
+	
+	 // Campo de identificação único do pedido
+	 @Id
+	 // Configura a estratégia de geração automática do valor da chave primária (auto-incremento)
+	 @GeneratedValue(strategy = GenerationType.IDENTITY)
+	 private Long id;
+	
+	 // Campo que armazena a data e hora do pedido no formato específico
+	 @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", timezone = "GMT")
+	 private Instant moment;
+	
+	 // Campo que representa o status do pedido
+	 private Integer orderStatus;
+	
+	 // Estabelece um relacionamento muitos-para-um com a entidade 'User' e define a chave estrangeira 'client_id'
+	 @ManyToOne
+	 @JoinColumn(name = "client_id")
+	 private User client;
+	
+	 // Estabelece um relacionamento um-para-muitos com a entidade 'OrderItem' usando a propriedade 'items'
+	 @OneToMany(mappedBy = "id.order")
+	 private Set<OrderItem> items = new HashSet<>();
+	
+	 // Estabelece uma relação um-para-um com a entidade 'Payment', mapeada pela propriedade 'order'
+	 @OneToOne(mappedBy = "order", cascade = CascadeType.ALL)
+	 // Campo que representa o pagamento associado a este pedido
+	 private Payment payment;
 
-	private static final long serialVersionUID = 1L;
-
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
-
-	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", timezone = "GMT")
-	private Instant moment;
-
-	private Integer orderStatus;
-
-	@ManyToOne
-	@JoinColumn(name = "client_id")
-	private User client;
-
-	@OneToMany(mappedBy = "id.order")
-	private Set<OrderItem> items = new HashSet<>();
-
+	
 	public Order() {
 	}
 
@@ -84,15 +101,24 @@ public class Order implements Serializable {
 	public void setClient(User client) {
 		this.client = client;
 	}
+	
+	public Payment getPayment() {
+		return payment;
+	}
+
+	public void setPayment(Payment payment) {
+		this.payment = payment;
+	}
+	
+	public Set<OrderItem> getItems() {
+		return items;
+	}
 
 	@Override
 	public int hashCode() {
 		return Objects.hash(id);
 	}
-
-	public Set<OrderItem> getItems() {
-		return items;
-	}
+	
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
